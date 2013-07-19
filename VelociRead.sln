@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelociRead", "VelociRead\VelociRead.csproj", "{DB74368F-8AA6-41AB-BF8A-7613BA74FDB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextSources", "TextSources\TextSources.csproj", "{EF81124C-4C1A-4949-949F-E5445A199F54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB74368F-8AA6-41AB-BF8A-7613BA74FDB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB74368F-8AA6-41AB-BF8A-7613BA74FDB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB74368F-8AA6-41AB-BF8A-7613BA74FDB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB74368F-8AA6-41AB-BF8A-7613BA74FDB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF81124C-4C1A-4949-949F-E5445A199F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF81124C-4C1A-4949-949F-E5445A199F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF81124C-4C1A-4949-949F-E5445A199F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF81124C-4C1A-4949-949F-E5445A199F54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

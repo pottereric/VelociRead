@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>epubReader</id>
+    <version>1.0.0</version>
+    <title>epubReader</title>
+    <authors>lanfengqi</authors>
+    <owners>lanfengqi</owners>
+    <projectUrl>http://epubreader.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ePubReader is an easy-to-use, FAST, FREE class library for opening and reading EPUB files.</description>
+    <summary>ePubReader is an easy-to-use, FAST, FREE class library for opening and reading EPUB files.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <references>
+      <reference file="eBdb.EpubReader.dll" />
+      <reference file="Ionic.Zip.dll" />
+    </references>
+  </metadata>
+</package>
