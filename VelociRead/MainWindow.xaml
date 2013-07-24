@@ -3,12 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
     Title="MainWindow" Height="350" Width="525">
+    <Window.InputBindings>
+        <KeyBinding Key="J" Command="{Binding Advance}" />
+    </Window.InputBindings>
     <Grid>
         <TextBlock
             HorizontalAlignment="Left"
-            Margin="177,148,0,0"
+            Margin="100,100,0,0"
             TextWrapping="Wrap"
-            Text="{Binding Test}"
+            Text="{Binding CurrentWord}"
             VerticalAlignment="Top" />
     </Grid>
 </Window>

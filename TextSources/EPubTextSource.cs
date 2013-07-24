@@ -12,7 +12,8 @@ namespace TextSources
         public EPubTextSource()
         {
             //Init epub object.
-            Epub epub = new Epub(@"C:\Users\eric.potter\Dropbox\ReadingMaterial\pragpub-2013-01.epub");
+            //Epub epub = new Epub(@"C:\Users\eric.potter\Dropbox\ReadingMaterial\pragpub-2013-01.epub");
+            Epub epub = new Epub(@"H:\Dropbox\ReadingMaterial\pragpub-2013-01.epub");
 
             //Get book title (Every epub file can have multiple titles)
             string title = epub.Title[0];
@@ -23,7 +24,7 @@ namespace TextSources
             //Get all book content as plain text
             string plainText = epub.GetContentAsPlainText();
 
-            words = plainText.Split(delimiters, 100);
+            words = plainText.Split(delimiters, 1000);
         }
 
         private string[] words;
@@ -33,7 +34,7 @@ namespace TextSources
         {
             get
             {
-                return 100;
+                return 1000;
             }
         }
 
