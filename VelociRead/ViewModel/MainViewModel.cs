@@ -1,22 +1,12 @@
-using System.Timers;
 using GalaSoft.MvvmLight;
-using TextSources;
 using GalaSoft.MvvmLight.Command;
+using System;
+using System.Diagnostics;
+using System.Timers;
+using TextSources;
 
 namespace VelociRead.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         /// <summary>
@@ -24,8 +14,6 @@ namespace VelociRead.ViewModel
         /// </summary>
         public MainViewModel()
         {
-
-
             epub = new EPubTextSource();
 
             Advance = new RelayCommand(OnAdvance);
@@ -33,12 +21,43 @@ namespace VelociRead.ViewModel
             StartTimer();
         }
 
+        private int currentWPM;
+
+        public int CurrentWPM
+        {
+            get { return currentWPM; }
+            set 
+            {
+                Debug.WriteLine(string.Format("CurrentWPM = {0}", value));
+                currentWPM = value; 
+            }
+        }
+
+        private double IntervalForWPM
+        {
+            get
+            {
+                return 60000 / CurrentWPM;
+            }
+        }
+
+        private void StartTimer()
+        {
+            CurrentWPM = 300;
+            wordIncrementTimer.Interval = IntervalForWPM;
+            wordIncrementTimer.Enabled = true;
+            wordIncrementTimer.Elapsed += wordIncrementTimer_Elapsed;
+            wordIncrementTimer.Start();
+
+            timeOfLastAdvance = DateTime.Now.TimeOfDay.TotalMilliseconds;
+        }
+
         private EPubTextSource epub;
         private int index = 0;
+        private Timer wordIncrementTimer = new Timer();
+        private int remainingWordCount = 0;
 
         public RelayCommand Advance { get; private set; }
-
-
 
         private void MoveToNextIndex()
         {
@@ -63,40 +82,56 @@ namespace VelociRead.ViewModel
             }
         }
 
+        private bool advancedBetweenTimerElapsed = false;
+        private double timeOfLastAdvance = 0;
+
         public void OnAdvance()
         {
-            remainingWorkCount += 10;
-            wordIncrementTimer.Interval -= 50;
-        }
+            advancedBetweenTimerElapsed = true;
+            if (remainingWordCount == 0)
+            {
+                remainingWordCount = 100;
+            }
+            else
+            {
+                remainingWordCount += 10;
+            }
+            double currentTime = DateTime.Now.TimeOfDay.TotalMilliseconds;
 
-        private Timer wordIncrementTimer = new Timer();
+            double elapsed = currentTime - timeOfLastAdvance;
+            
 
-        int remainingWorkCount = 0;
+            CurrentWPM = (int)(600000D / elapsed);
+            wordIncrementTimer.Interval = IntervalForWPM;
 
-        private void StartTimer()
-        {
-            wordIncrementTimer.Interval = 500;
-            wordIncrementTimer.Enabled = true;
-            wordIncrementTimer.Elapsed +=wordIncrementTimer_Elapsed;
-            wordIncrementTimer.Start();
-
-            remainingWorkCount = 10;
+            timeOfLastAdvance = currentTime;
         }
 
         private void wordIncrementTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            MoveToNextIndex();
-            remainingWorkCount--;
-
-            if (remainingWorkCount == 0)
+            if (remainingWordCount > 0)
             {
-                wordIncrementTimer.Stop();
-                wordIncrementTimer.Interval = 500;
+                MoveToNextIndex();
+                remainingWordCount--;
+
+                if (!advancedBetweenTimerElapsed)
+                {
+                    // If there was not advance event, slow down
+                    //wordIncrementTimer.Interval += 100;
+
+                    if (CurrentWPM > 25)
+                    {
+                        CurrentWPM -= 25;
+                        wordIncrementTimer.Interval = IntervalForWPM;
+                    }
+                    else
+                    {
+                        CurrentWPM = 1;
+                    }
+                }
+
+                advancedBetweenTimerElapsed = false;
             }
         }
-
-
-       
-
     }
 }
