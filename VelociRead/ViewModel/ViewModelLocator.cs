@@ -43,6 +43,10 @@ namespace VelociRead.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<TableOfContentsViewModel>();
+
+            
+
         }
 
         public MainViewModel Main
@@ -50,6 +54,14 @@ namespace VelociRead.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public TableOfContentsViewModel TableOfContentsVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TableOfContentsViewModel>();
             }
         }
         

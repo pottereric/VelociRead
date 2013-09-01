@@ -5,6 +5,7 @@
     Title="MainWindow" Height="350" Width="525">
     <Window.InputBindings>
         <KeyBinding Key="J" Command="{Binding Advance}" />
+        <KeyBinding Key="T" Command="{Binding ShowTableOfContents}" />
     </Window.InputBindings>
     <Grid>
         <TextBlock
@@ -13,6 +14,6 @@
             TextWrapping="Wrap"
             Text="{Binding CurrentWord}"
             TextAlignment="Center"
-            FontSize="48" />
+            FontSize="64" />
     </Grid>
 </Window>

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelociRead", "VelociRead\Ve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextSources", "TextSources\TextSources.csproj", "{EF81124C-4C1A-4949-949F-E5445A199F54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextSources.UnitTests", "TextSources.UnitTests\TextSources.UnitTests.csproj", "{AD6A31F0-CF28-4EB1-B1DE-EE3EDBC31CA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{EF81124C-4C1A-4949-949F-E5445A199F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF81124C-4C1A-4949-949F-E5445A199F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF81124C-4C1A-4949-949F-E5445A199F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6A31F0-CF28-4EB1-B1DE-EE3EDBC31CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6A31F0-CF28-4EB1-B1DE-EE3EDBC31CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6A31F0-CF28-4EB1-B1DE-EE3EDBC31CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6A31F0-CF28-4EB1-B1DE-EE3EDBC31CA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -45,7 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EPubTextSource.cs" />
+    <Compile Include="Chapter.cs" />
+    <Compile Include="ChapteredEPubTextSource.cs" />
+    <Compile Include="FlatEPubTextSource.cs" />
+    <Compile Include="ITextSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

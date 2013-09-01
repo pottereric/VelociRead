@@ -3,7 +3,9 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Diagnostics;
 using System.Timers;
+using System.Linq;
 using TextSources;
+using VelociRead.BusinessLogic;
 
 namespace VelociRead.ViewModel
 {
@@ -14,9 +16,13 @@ namespace VelociRead.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            epub = new EPubTextSource();
+            //epub = new FlatEPubTextSource();
+            epub = new ChapteredEPubTextSource();
+            EpubManager.Instance.CurrentTextSource = epub;
+            CurrentChapter = epub.Chapters.First();
 
             Advance = new RelayCommand(OnAdvance);
+            ShowTableOfContents = new RelayCommand(OnShowTableOfContents);
 
             StartTimer();
         }
@@ -52,12 +58,24 @@ namespace VelociRead.ViewModel
             timeOfLastAdvance = DateTime.Now.TimeOfDay.TotalMilliseconds;
         }
 
-        private EPubTextSource epub;
+        private ITextSource epub;
         private int index = 0;
         private Timer wordIncrementTimer = new Timer();
         private int remainingWordCount = 0;
 
         public RelayCommand Advance { get; private set; }
+
+        private Chapter CurrentChapter
+        {
+            get
+            {
+                return EpubManager.Instance.CurrentChapter;
+            }
+            set
+            {
+                EpubManager.Instance.CurrentChapter = value;
+            }
+        }
 
         private void MoveToNextIndex()
         {
@@ -67,7 +85,7 @@ namespace VelociRead.ViewModel
                 index++;
             }
 
-            if (index == epub.WordCount)
+            if (index == CurrentChapter.WordCount)
             {
                 index = 0;
             }
@@ -78,7 +96,7 @@ namespace VelociRead.ViewModel
         {
             get
             {
-                return epub[index].Trim();
+                return CurrentChapter[index].Trim();
             }
         }
 
@@ -132,6 +150,16 @@ namespace VelociRead.ViewModel
 
                 advancedBetweenTimerElapsed = false;
             }
+        }
+
+
+        public RelayCommand ShowTableOfContents { get; private set; }
+        public void OnShowTableOfContents()
+        {
+            var toc = new TableOfContents();
+            toc.ShowDialog();
+            index = 0;
+            
         }
     }
 }
