@@ -6,6 +6,7 @@
     <Window.InputBindings>
         <KeyBinding Key="J" Command="{Binding Advance}" />
         <KeyBinding Key="T" Command="{Binding ShowTableOfContents}" />
+        <KeyBinding Key="O" Command="{Binding OpenFile}" />
     </Window.InputBindings>
     <Grid>
         <TextBlock
@@ -14,6 +15,6 @@
             TextWrapping="Wrap"
             Text="{Binding CurrentWord}"
             TextAlignment="Center"
-            FontSize="64" />
+            FontSize="80" />
     </Grid>
 </Window>

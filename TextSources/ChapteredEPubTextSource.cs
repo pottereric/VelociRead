@@ -9,9 +9,10 @@ namespace TextSources
     {
         private Epub CurrentEpub;
 
-        public ChapteredEPubTextSource()
+        public ChapteredEPubTextSource(string fileName)
         {
-            CurrentEpub = new Epub(@"..\..\..\TestData\pragpub-2013-07.epub");
+            //CurrentEpub = new Epub(@"..\..\..\TestData\pragpub-2013-07.epub");
+            CurrentEpub = new Epub(fileName);
         }
 
         public String Title
