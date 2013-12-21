@@ -123,7 +123,12 @@ namespace VelociRead.ViewModel
 
             double elapsed = currentTime - timeOfLastAdvance;
 
-            CurrentWPM = (int)(600000D / elapsed);
+            var newWPM = (int)(600000D / elapsed);
+            if (newWPM < 1000)
+            {
+                CurrentWPM = newWPM;
+            }
+
             wordIncrementTimer.Interval = IntervalForWPM;
 
             timeOfLastAdvance = currentTime;

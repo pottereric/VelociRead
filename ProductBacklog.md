@@ -12,7 +12,7 @@
 [ ] The unicode characters shouldn't be in hex
 [ ] The TOC should start at the current chapter #
 [ ] There should be a key stroke to go to the next chapter
-[ ] TBD
+[X] There should be a max speed.
 [ ] TBD
 [ ] TBD
 [ ] TBD
