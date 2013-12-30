@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Timers;
 using TextSources;
 using VelociRead.BusinessLogic;
 
@@ -14,56 +13,44 @@ namespace VelociRead.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(ITextSourceFactory textSourceFactory)
         {
+            CurrentTextSourceFactory = textSourceFactory;
+
             OnOpenFile();
 
+            SetCommandHandlers();
+
+            advancer = new WordAdvancer();
+            advancer.ViewModel = this;
+            advancer.Initialize();
+        }
+        public MainViewModel(ITextSourceFactory textSourceFactory, string fileName)
+        {
+            CurrentTextSourceFactory = textSourceFactory;
+
+            SetCurrentFile(fileName);
+
+            SetCommandHandlers();
+
+            advancer = new WordAdvancer();
+            advancer.ViewModel = this;
+            advancer.Initialize();
+        }
+
+        
+
+        private void SetCommandHandlers()
+        {
             Advance = new RelayCommand(OnAdvance);
             ShowTableOfContents = new RelayCommand(OnShowTableOfContents);
             OpenFile = new RelayCommand(OnOpenFile);
-
-            StartTimer();
         }
 
-        private int currentWPM;
-
-        public int CurrentWPM
-        {
-            get { return currentWPM; }
-            set
-            {
-                Debug.WriteLine(string.Format("CurrentWPM = {0}", value));
-                currentWPM = value;
-            }
-        }
-
-        private double IntervalForWPM
-        {
-            get
-            {
-                if (CurrentWPM == 0)
-                {
-                    CurrentWPM = 1;
-                }
-                return 60000 / CurrentWPM;
-            }
-        }
-
-        private void StartTimer()
-        {
-            CurrentWPM = 300;
-            wordIncrementTimer.Interval = IntervalForWPM;
-            wordIncrementTimer.Enabled = true;
-            wordIncrementTimer.Elapsed += wordIncrementTimer_Elapsed;
-            wordIncrementTimer.Start();
-
-            timeOfLastAdvance = DateTime.Now.TimeOfDay.TotalMilliseconds;
-        }
-
+        private WordAdvancer advancer;
+        private ITextSourceFactory CurrentTextSourceFactory;
         private ITextSource epub;
         private int index = 0;
-        private Timer wordIncrementTimer = new Timer();
-        private int remainingWordCount = 0;
 
         public RelayCommand Advance { get; private set; }
 
@@ -79,7 +66,7 @@ namespace VelociRead.ViewModel
             }
         }
 
-        private void MoveToNextIndex()
+        public void MoveToNextIndex()
         {
             index++;
             while (string.IsNullOrWhiteSpace(CurrentWord))
@@ -105,61 +92,15 @@ namespace VelociRead.ViewModel
             }
         }
 
-        private bool advancedBetweenTimerElapsed = false;
-        private double timeOfLastAdvance = 0;
+
 
         public void OnAdvance()
         {
-            advancedBetweenTimerElapsed = true;
-            if (remainingWordCount == 0)
-            {
-                remainingWordCount = 100;
-            }
-            else
-            {
-                remainingWordCount += 10;
-            }
-            double currentTime = DateTime.Now.TimeOfDay.TotalMilliseconds;
+            advancer.Advance();
 
-            double elapsed = currentTime - timeOfLastAdvance;
-
-            var newWPM = (int)(600000D / elapsed);
-            if (newWPM < 1000)
-            {
-                CurrentWPM = newWPM;
-            }
-
-            wordIncrementTimer.Interval = IntervalForWPM;
-
-            timeOfLastAdvance = currentTime;
         }
 
-        private void wordIncrementTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if (remainingWordCount > 0)
-            {
-                MoveToNextIndex();
-                remainingWordCount--;
 
-                if (!advancedBetweenTimerElapsed)
-                {
-                    // If there was not advance event, slow down
-                    //wordIncrementTimer.Interval += 100;
-
-                    if (CurrentWPM > 25)
-                    {
-                        CurrentWPM -= 25;
-                        wordIncrementTimer.Interval = IntervalForWPM;
-                    }
-                    else
-                    {
-                        CurrentWPM = 1;
-                    }
-                }
-
-                advancedBetweenTimerElapsed = false;
-            }
-        }
 
         public RelayCommand ShowTableOfContents { get; private set; }
         public void OnShowTableOfContents()
@@ -184,11 +125,15 @@ namespace VelociRead.ViewModel
                 // Open document 
                 string filename = dlg.FileName;
 
-                //epub = new FlatEPubTextSource();
-                epub = new ChapteredEPubTextSource(filename);
-                EpubManager.Instance.CurrentTextSource = epub;
-                CurrentChapter = epub.Chapters.First();
+                SetCurrentFile(filename);
             }
+        }
+
+        public void SetCurrentFile(string filename)
+        {
+            epub = CurrentTextSourceFactory.GetTextSource(filename);
+            EpubManager.Instance.CurrentTextSource = epub;
+            CurrentChapter = epub.Chapters.First();
         }
     }
 }

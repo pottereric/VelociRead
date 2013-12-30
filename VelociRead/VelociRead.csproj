@@ -66,6 +66,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\EpubManager.cs" />
+    <Compile Include="BusinessLogic\ITextSourceFactory.cs" />
+    <Compile Include="BusinessLogic\IWordAdvancer.cs" />
+    <Compile Include="BusinessLogic\TextSourceFactory.cs" />
+    <Compile Include="BusinessLogic\WordAdvancer.cs" />
     <Compile Include="TableOfContents.xaml.cs">
       <DependentUpon>TableOfContents.xaml</DependentUpon>
     </Compile>

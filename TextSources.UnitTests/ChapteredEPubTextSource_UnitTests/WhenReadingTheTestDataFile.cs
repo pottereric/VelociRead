@@ -11,7 +11,7 @@ namespace TextSources.UnitTests.ChapteredEPubTextSource_UnitTests
         [TestInitialize]
         public void Init()
         {
-            EpubTextSource = new ChapteredEPubTextSource();
+            EpubTextSource = new ChapteredEPubTextSource("..\\..\\..\\TestData\\pragpub-2013-07.epub");
         }
 
         [TestMethod]

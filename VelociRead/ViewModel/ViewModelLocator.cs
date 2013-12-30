@@ -15,6 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using VelociRead.BusinessLogic;
 
 namespace VelociRead.ViewModel
 {
@@ -42,7 +43,7 @@ namespace VelociRead.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MainViewModel>(() => new MainViewModel(new TextSourceFactory()));
             SimpleIoc.Default.Register<TableOfContentsViewModel>();
 
             
