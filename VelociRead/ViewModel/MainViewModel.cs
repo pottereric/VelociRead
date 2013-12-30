@@ -1,7 +1,6 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using TextSources;
 using VelociRead.BusinessLogic;
@@ -13,7 +12,7 @@ namespace VelociRead.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(ITextSourceFactory textSourceFactory)
+        public MainViewModel(ITextSourceFactory textSourceFactory, IWordAdvancer advancer)
         {
             CurrentTextSourceFactory = textSourceFactory;
 
@@ -21,11 +20,12 @@ namespace VelociRead.ViewModel
 
             SetCommandHandlers();
 
-            advancer = new WordAdvancer();
-            advancer.ViewModel = this;
-            advancer.Initialize();
+            this.advancer = advancer;
+            this.advancer.ViewModel = this;
+            this.advancer.Initialize();
         }
-        public MainViewModel(ITextSourceFactory textSourceFactory, string fileName)
+
+        public MainViewModel(ITextSourceFactory textSourceFactory, IWordAdvancer advancer, string fileName)
         {
             CurrentTextSourceFactory = textSourceFactory;
 
@@ -33,12 +33,10 @@ namespace VelociRead.ViewModel
 
             SetCommandHandlers();
 
-            advancer = new WordAdvancer();
-            advancer.ViewModel = this;
-            advancer.Initialize();
+            this.advancer = advancer;
+            this.advancer.ViewModel = this;
+            this.advancer.Initialize();
         }
-
-        
 
         private void SetCommandHandlers()
         {
@@ -47,7 +45,7 @@ namespace VelociRead.ViewModel
             OpenFile = new RelayCommand(OnOpenFile);
         }
 
-        private WordAdvancer advancer;
+        private IWordAdvancer advancer;
         private ITextSourceFactory CurrentTextSourceFactory;
         private ITextSource epub;
         private int index = 0;
@@ -92,17 +90,13 @@ namespace VelociRead.ViewModel
             }
         }
 
-
-
         public void OnAdvance()
         {
             advancer.Advance();
-
         }
 
-
-
         public RelayCommand ShowTableOfContents { get; private set; }
+
         public void OnShowTableOfContents()
         {
             var toc = new TableOfContents();
@@ -116,13 +110,13 @@ namespace VelociRead.ViewModel
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-            // Show open file dialog box 
+            // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
 
-            // Process open file dialog box results 
+            // Process open file dialog box results
             if (result == true)
             {
-                // Open document 
+                // Open document
                 string filename = dlg.FileName;
 
                 SetCurrentFile(filename);

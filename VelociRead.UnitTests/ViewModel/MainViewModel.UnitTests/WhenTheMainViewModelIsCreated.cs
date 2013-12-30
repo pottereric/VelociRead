@@ -8,7 +8,7 @@ namespace VelociRead.UnitTests.ViewModel_MainViewModel.UnitTests
     [TestClass]
     public class WhenTheMainViewModelIsCreated
     {
-        MainViewModel viewModel = new MainViewModel(new TestTextSourceFactory(), String.Empty);
+        MainViewModel viewModel = new MainViewModel(new TestTextSourceFactory(), new SingleWordAdvancer(), String.Empty);
 
         [TestInitialize]
         public void Init()

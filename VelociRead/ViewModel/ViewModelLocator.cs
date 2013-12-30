@@ -43,7 +43,7 @@ namespace VelociRead.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>(() => new MainViewModel(new TextSourceFactory()));
+            SimpleIoc.Default.Register<MainViewModel>(() => new MainViewModel(new TextSourceFactory(), new WordAdvancer()));
             SimpleIoc.Default.Register<TableOfContentsViewModel>();
 
             

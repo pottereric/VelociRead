@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.WPF45, Version=4.1.27.22784, Culture=neutral, PublicKeyToken=eabbf6a5f5af5004, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stubs\SingleWordAdvancer.cs" />
     <Compile Include="Stubs\TestTextSourceFactory.cs" />
   </ItemGroup>
   <ItemGroup />
