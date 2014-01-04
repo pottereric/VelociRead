@@ -116,14 +116,32 @@ namespace VelociRead.ViewModel
 
         public void OnPreviousChapter()
         {
-
+            var currentChapterIndex = GetCurrentChapterIndex(); 
+            if (currentChapterIndex > 0)
+            {
+                CurrentChapter = epub.Chapters[currentChapterIndex - 1];
+                index = 0;
+                RaisePropertyChanged("CurrentWord");
+            }
         }
 
         public RelayCommand NextChapter { get; private set; }
 
         public void OnNextChapter()
         {
+            var currentChapterIndex = GetCurrentChapterIndex();
+            if (currentChapterIndex < epub.Chapters.Count)
+            {
+                CurrentChapter = epub.Chapters[currentChapterIndex + 1];
+                index = 0;
+                RaisePropertyChanged("CurrentWord");
+            }
+        }
 
+        private int GetCurrentChapterIndex()
+        {
+            var currentChapterIndex = epub.Chapters.FindIndex(c => c.Title == CurrentChapter.Title && c.WordCount == CurrentChapter.WordCount);
+            return currentChapterIndex;
         }
 
         public RelayCommand ShowTableOfContents { get; private set; }
