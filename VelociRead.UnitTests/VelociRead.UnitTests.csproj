@@ -55,6 +55,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheCurrentWordHasAComma.cs" />
+    <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheCurrentWordHasAPeriod.cs" />
     <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheViewModelJumpsBackAndTheIndexIsMoreThan50.cs" />
     <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheViewModelJumpsBackAndTheIndexIsLessThan50.cs" />
     <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheMainViewModelIsCreated.cs" />
