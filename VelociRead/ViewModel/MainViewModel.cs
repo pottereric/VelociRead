@@ -43,14 +43,15 @@ namespace VelociRead.ViewModel
             Advance = new RelayCommand(OnAdvance);
             ShowTableOfContents = new RelayCommand(OnShowTableOfContents);
             OpenFile = new RelayCommand(OnOpenFile);
+            JumpBack = new RelayCommand(OnJumpBack);
+            NextChapter = new RelayCommand(OnNextChapter);
+            PreviousChapter = new RelayCommand(OnPreviousChapter);
         }
 
         private IWordAdvancer advancer;
         private ITextSourceFactory CurrentTextSourceFactory;
         private ITextSource epub;
         private int index = 0;
-
-        public RelayCommand Advance { get; private set; }
 
         private Chapter CurrentChapter
         {
@@ -66,18 +67,17 @@ namespace VelociRead.ViewModel
 
         public void MoveToNextIndex()
         {
-            index++;
-            while (string.IsNullOrWhiteSpace(CurrentWord))
-            {
-                index++;
-            }
-
             if (index == CurrentChapter.WordCount)
             {
                 //index = 0;
             }
             else
             {
+                index++;
+                while (string.IsNullOrWhiteSpace(CurrentWord))
+                {
+                    index++;
+                }
                 RaisePropertyChanged("CurrentWord");
             }
         }
@@ -90,9 +90,40 @@ namespace VelociRead.ViewModel
             }
         }
 
+        public RelayCommand Advance { get; private set; }
+
         public void OnAdvance()
         {
             advancer.Advance();
+        }
+
+        public RelayCommand JumpBack { get; private set; }
+
+        public void OnJumpBack()
+        {
+            if (index < 50)
+            {
+                index = 0;
+            }
+            else
+            {
+                index -= 50;
+            }
+            RaisePropertyChanged("CurrentWord");
+        }
+
+        public RelayCommand PreviousChapter { get; private set; }
+
+        public void OnPreviousChapter()
+        {
+
+        }
+
+        public RelayCommand NextChapter { get; private set; }
+
+        public void OnNextChapter()
+        {
+
         }
 
         public RelayCommand ShowTableOfContents { get; private set; }

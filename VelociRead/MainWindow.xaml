@@ -5,6 +5,10 @@
     Title="MainWindow" Height="350" Width="525">
     <Window.InputBindings>
         <KeyBinding Key="J" Command="{Binding Advance}" />
+        <KeyBinding Key="K" Command="{Binding JumpBack}" />
+        <KeyBinding Key="H" Command="{Binding PreviousChapter}" />
+        <KeyBinding Key="L" Command="{Binding NextChapter}" />
+
         <KeyBinding Key="T" Command="{Binding ShowTableOfContents}" />
         <KeyBinding Key="O" Command="{Binding OpenFile}" />
     </Window.InputBindings>

@@ -4,7 +4,7 @@
 [X] As a reader, I want the speed of pedeling to dictate the speed of text
 [X] As a reader, I want the text to stop at the end of each chapter
 [X] As a reader, I want a popup that lets me pick a chapter.
-[ ] As a reader, I want to be able to jump back 50 words
+[X] As a reader, I want to be able to jump back 50 words
 [ ] As a reader, I want a progress indicator
 [ ] As a reader, I want to close the TOC with a keystroke
 [ ] As a reader, I want the font size to be relative to the screen size

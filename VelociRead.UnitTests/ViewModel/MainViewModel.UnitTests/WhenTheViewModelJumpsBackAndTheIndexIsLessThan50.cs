@@ -6,24 +6,24 @@ using VelociRead.TestUtilities.Stubs;
 namespace VelociRead.UnitTests.ViewModel_MainViewModel.UnitTests
 {
     [TestClass]
-    public class WhenTheSourceIsAdvanced
+    public class WhenTheViewModelJumpsBackAndTheIndexIsLessThan50
     {
         MainViewModel viewModel = new MainViewModel(new TestTextSourceFactory(), new SingleWordAdvancer(), String.Empty);
 
         [TestInitialize]
         public void Init()
         {
-            viewModel.OnAdvance();
+            for (int i = 0; i < 10; i++)
+            {
+                viewModel.OnAdvance();
+            }
+            viewModel.OnJumpBack();
         }
 
         [TestMethod]
-        public void ThenTheCurrentWordHasMovedPastTheFirstWord()
+        public void ThenTheCurrentWordWillBeTheFirstWordInTheChapter()
         {
-            Assert.AreNotEqual("One", viewModel.CurrentWord);
-            Assert.AreEqual("two", viewModel.CurrentWord);
+            Assert.AreEqual("One", viewModel.CurrentWord);
         }
-
-        // CurrentWPM
-        
     }
 }

@@ -14,7 +14,8 @@ namespace TextSources
         }
 
         private string[] words;
-        private char[] delimiters = { ' ', '.', ',' };
+        //private char[] delimiters = { ' ', '.', ',' };
+        private char[] delimiters = { ' '};
 
         public int WordCount
         {

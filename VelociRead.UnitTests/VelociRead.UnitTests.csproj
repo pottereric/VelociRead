@@ -35,7 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight.WPF45, Version=4.1.27.22784, Culture=neutral, PublicKeyToken=eabbf6a5f5af5004, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.WPF45, Version=4.1.24.16411, Culture=neutral, PublicKeyToken=eabbf6a5f5af5004, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvvmLightLibs.4.1.27.0\lib\net45\GalaSoft.MvvmLight.WPF45.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -52,6 +55,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheViewModelJumpsBackAndTheIndexIsMoreThan50.cs" />
+    <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheViewModelJumpsBackAndTheIndexIsLessThan50.cs" />
     <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheMainViewModelIsCreated.cs" />
     <Compile Include="ViewModel\MainViewModel.UnitTests\WhenTheSourceIsAdvanced.cs" />
   </ItemGroup>
